@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { products, getProduct, getRelatedProducts } from "@/data/products";
+import { products, getProduct } from "@/data/products";
+import { getSimilarProducts } from "@/lib/semantic-search";
 import { ImageGallery } from "@/components/image-gallery";
 import { ProductInfo } from "@/components/product-info";
 import { ProductDetailsAccordion } from "@/components/product-details-accordion";
@@ -37,7 +38,7 @@ export default async function ProductPage({ params }: PageProps) {
     notFound();
   }
 
-  const related = getRelatedProducts(product);
+  const related = getSimilarProducts(product, products, 8);
 
   return (
     <main className="max-w-7xl mx-auto px-4 md:px-8 py-6 md:py-10">
